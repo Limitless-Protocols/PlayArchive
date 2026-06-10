@@ -4,9 +4,9 @@
 #include <algorithm>
 #include <iostream>
 #include <set>
+#include <zstd.h>
+#include <xxhash.h>
 
-// Placeholder for Zstd and xxHash
-// In a real build, we'd include <zstd.h> and <xxhash.h>
 #define ZSTD_CLEVEL_DEFAULT 3
 
 namespace fs = std::filesystem;
@@ -53,13 +53,22 @@ bool GCFEngine::create(const std::string& archivePath,
                     gcfEntry.compressedSize = gcfEntry.originalSize;
                     outFile.write(buffer.data(), gcfEntry.originalSize);
                 } else {
-                    // Placeholder for Zstd compression
-                    // size_t cSize = ZSTD_compress(cBuffer, cCapacity, buffer.data(), buffer.size(), ZSTD_CLEVEL_DEFAULT);
-                    gcfEntry.isCompressed = true;
-                    gcfEntry.compressedSize = gcfEntry.originalSize; // Placeholder
-                    outFile.write(buffer.data(), gcfEntry.originalSize); // Placeholder: writing raw for now
+                    size_t cCapacity = ZSTD_compressBound(gcfEntry.originalSize);
+                    std::vector<char> cBuffer(cCapacity);
+                    size_t cSize = ZSTD_compress(cBuffer.data(), cCapacity, buffer.data(), buffer.size(), ZSTD_CLEVEL_DEFAULT);
+                    
+                    if (ZSTD_isError(cSize)) {
+                        gcfEntry.isCompressed = false;
+                        gcfEntry.compressedSize = gcfEntry.originalSize;
+                        outFile.write(buffer.data(), gcfEntry.originalSize);
+                    } else {
+                        gcfEntry.isCompressed = true;
+                        gcfEntry.compressedSize = cSize;
+                        outFile.write(cBuffer.data(), cSize);
+                    }
                 }
 
+                gcfEntry.crc32 = XXH32(buffer.data(), buffer.size(), 0);
                 currentOffset += gcfEntry.compressedSize;
                 entries.push_back(gcfEntry);
 
@@ -129,9 +138,15 @@ bool GCFEngine::extract(const std::string& archivePath,
         inFile.read(buffer.data(), entry.compressedSize);
 
         if (entry.isCompressed) {
-            // Placeholder for Zstd decompression
-            // ZSTD_decompress(dBuffer, dCapacity, buffer.data(), buffer.size());
-            outFile.write(buffer.data(), entry.compressedSize); // Placeholder
+            std::vector<char> dBuffer(entry.originalSize);
+            size_t dSize = ZSTD_decompress(dBuffer.data(), entry.originalSize, buffer.data(), buffer.size());
+            
+            if (ZSTD_isError(dSize)) {
+                // Fallback or error handling
+                outFile.write(buffer.data(), entry.compressedSize);
+            } else {
+                outFile.write(dBuffer.data(), dSize);
+            }
         } else {
             outFile.write(buffer.data(), entry.compressedSize);
         }

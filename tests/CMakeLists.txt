@@ -1,5 +1,3 @@
-find_package(GTest REQUIRED)
-
 add_executable(playarchive_tests GCFTest.cpp)
 target_link_libraries(playarchive_tests
     PRIVATE

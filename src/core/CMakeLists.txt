@@ -10,7 +10,8 @@ target_link_libraries(playarchive_core
     PUBLIC
     Qt6::Core
     LibArchive::LibArchive
-    ${ZSTD_LIBRARIES}
+    ZSTD::ZSTD
+    xxHash::xxhash
 )
 
 target_include_directories(playarchive_core PUBLIC ${CMAKE_SOURCE_DIR}/include)

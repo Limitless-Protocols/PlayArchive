@@ -27,11 +27,12 @@ PlayArchive is a high-performance, cross-platform compression application optimi
 ## Building from Source
 
 ### Dependencies
-- CMake 3.16+
-- Qt 6.5+ (Core, Gui, Qml, Quick, QuickControls2, Concurrent)
-- LibArchive
-- Zstandard (Zstd)
-- xxHash
+- **CMake 3.16+**
+- **Qt 6.5+** (Core, Gui, Qml, Quick, QuickControls2, Concurrent) - *Required on system*
+- **LibArchive** - *Required on system*
+- **Zstandard (Zstd)** - *Fetched automatically if not found*
+- **xxHash** - *Fetched automatically if not found*
+- **GoogleTest** - *Fetched automatically if not found*
 
 ### Build Steps
 ```bash

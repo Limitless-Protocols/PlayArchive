@@ -7,12 +7,14 @@ PlayArchive is maintained and developed by **Limitless Protocols**.
 To build PlayArchive, you need:
 - **C++ Compiler**: Support for C++17 (MSVC 2019+, GCC 9+, Clang 10+).
 - **CMake**: Version 3.16 or higher.
-- **Qt 6**: Specifically the Core, Gui, Qml, Quick, and Concurrent modules.
-- **Libraries**:
-    - `libarchive`
-    - `zstd`
-    - `xxHash`
-    - `GoogleTest` (for testing)
+- **Qt 6**: Specifically the Core, Gui, Qml, Quick, and Concurrent modules. (Must be installed on the system).
+- **LibArchive**: (Must be installed on the system).
+
+### Automated Dependencies
+The following libraries will be automatically downloaded and built by CMake using `FetchContent` if they are not found on your system:
+- `Zstandard (Zstd)`
+- `xxHash`
+- `GoogleTest` (for testing)
 
 ## Build System
 
