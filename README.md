@@ -50,13 +50,13 @@ Run `playarchive_gui` to launch the graphical interface. Drag and drop archives 
 ### CLI
 ```bash
 # Create a GCF archive
-playarchive-cli create mygame.gcf ./GameFolder
+playarchive create mygame.gcf ./GameFolder
 
 # Extract an archive
-playarchive-cli extract mygame.gcf ./Destination
+playarchive extract mygame.gcf ./Destination
 
 # List contents
-playarchive-cli list mygame.gcf
+playarchive list mygame.gcf
 ```
 
 ## Documentation

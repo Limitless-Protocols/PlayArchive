@@ -5,11 +5,19 @@
 #include "playarchive/FormatManager.h"
 #include "playarchive/GCFEngine.h"
 #include "playarchive/LibArchiveHandler.h"
+#include "playarchive/PlatformUtils.h"
 
 using namespace PlayArchive;
 
 int main(int argc, char *argv[]) {
+#ifdef Q_OS_WIN
+    if (!PlatformUtils::checkContextMenuInstalled()) {
+        PlatformUtils::installContextMenu();
+    }
+#endif
+
     QGuiApplication app(argc, argv);
+
     app.setOrganizationName("PlayArchive");
     app.setApplicationName("PlayArchive");
 

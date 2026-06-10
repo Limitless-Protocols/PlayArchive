@@ -8,7 +8,7 @@
 using namespace PlayArchive;
 
 void printUsage() {
-    std::cout << "Usage: playarchive-cli <command> <archive_path> [source_paths/dest_path]\n";
+    std::cout << "Usage: playarchive <command> <archive_path> [source_paths/dest_path]\n";
     std::cout << "Commands:\n";
     std::cout << "  create <archive> <source1> [source2...] : Create an archive\n";
     std::cout << "  extract <archive> <destination>         : Extract an archive\n";

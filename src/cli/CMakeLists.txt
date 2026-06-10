@@ -1,6 +1,6 @@
-add_executable(playarchive_cli main.cpp)
+add_executable(playarchive main.cpp)
 
-target_link_libraries(playarchive_cli
+target_link_libraries(playarchive
     PRIVATE
     playarchive_core
 )
