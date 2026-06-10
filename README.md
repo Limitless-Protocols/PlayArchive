@@ -58,5 +58,15 @@ playarchive-cli extract mygame.gcf ./Destination
 playarchive-cli list mygame.gcf
 ```
 
+## Documentation
+
+Detailed developer and user documentation is available in the `docs/` directory:
+
+1. [Architectural Overview](docs/architecture.md) - Deep dive into the core engine and design patterns.
+2. [GCF Format Specification](docs/gcf_format.md) - Details on the custom Game Compression Format.
+3. [User Guide (GUI)](docs/gui_guide.md) - How to use the graphical interface.
+4. [CLI Reference](docs/cli_reference.md) - Command-line interface commands and options.
+5. [Developer Guide](docs/developer_guide.md) - Building, testing, and contributing.
+
 ## License
 MIT License
